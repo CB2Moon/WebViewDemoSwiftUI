@@ -11,6 +11,9 @@
 		222EF7372C42C544000068EB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EF7362C42C544000068EB /* ContentView.swift */; };
 		222EF7392C42C545000068EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222EF7382C42C545000068EB /* Assets.xcassets */; };
 		222EF73C2C42C545000068EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222EF73B2C42C545000068EB /* Preview Assets.xcassets */; };
+		222EF7442C42C5C0000068EB /* Setting in Frameworks */ = {isa = PBXBuildFile; productRef = 222EF7432C42C5C0000068EB /* Setting */; };
+		222EF7462C42C608000068EB /* LinkPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EF7452C42C608000068EB /* LinkPage.swift */; };
+		222EF7482C42D0F6000068EB /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EF7472C42D0F6000068EB /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,8 @@
 		222EF7362C42C544000068EB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		222EF7382C42C545000068EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		222EF73B2C42C545000068EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		222EF7452C42C608000068EB /* LinkPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPage.swift; sourceTree = "<group>"; };
+		222EF7472C42D0F6000068EB /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				222EF7442C42C5C0000068EB /* Setting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +61,8 @@
 				222EF7362C42C544000068EB /* ContentView.swift */,
 				222EF7382C42C545000068EB /* Assets.xcassets */,
 				222EF73A2C42C545000068EB /* Preview Content */,
+				222EF7452C42C608000068EB /* LinkPage.swift */,
+				222EF7472C42D0F6000068EB /* WebView.swift */,
 			);
 			path = WebViewDemoSwiftUI;
 			sourceTree = "<group>";
@@ -83,6 +91,9 @@
 			dependencies = (
 			);
 			name = WebViewDemoSwiftUI;
+			packageProductDependencies = (
+				222EF7432C42C5C0000068EB /* Setting */,
+			);
 			productName = WebViewDemoSwiftUI;
 			productReference = 222EF7312C42C544000068EB /* WebViewDemoSwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +122,9 @@
 				Base,
 			);
 			mainGroup = 222EF7282C42C544000068EB;
+			packageReferences = (
+				222EF7422C42C5C0000068EB /* XCRemoteSwiftPackageReference "Setting" */,
+			);
 			productRefGroup = 222EF7322C42C544000068EB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,6 +153,8 @@
 			files = (
 				222EF7372C42C544000068EB /* ContentView.swift in Sources */,
 				222EF7352C42C544000068EB /* WebViewDemoSwiftUIApp.swift in Sources */,
+				222EF7482C42D0F6000068EB /* WebView.swift in Sources */,
+				222EF7462C42C608000068EB /* LinkPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +291,7 @@
 				DEVELOPMENT_TEAM = R455PNH33V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to provide location-based services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +321,7 @@
 				DEVELOPMENT_TEAM = R455PNH33V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to provide location-based services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,6 +362,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		222EF7422C42C5C0000068EB /* XCRemoteSwiftPackageReference "Setting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aheze/Setting";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		222EF7432C42C5C0000068EB /* Setting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 222EF7422C42C5C0000068EB /* XCRemoteSwiftPackageReference "Setting" */;
+			productName = Setting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 222EF7292C42C544000068EB /* Project object */;
 }
