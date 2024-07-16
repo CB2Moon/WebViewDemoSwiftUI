@@ -35,7 +35,6 @@ struct LinkPage: View {
     @State private var inputLink: String = ""
     @State private var selectedURL: URL?
     @State private var isWebViewPresented: Bool = false
-    @FocusState private var isInputFocused: Bool
     @StateObject private var locationManager = LocationManager()
     private var fontSize: CGFloat = 17
     @State private var textFieldHeight: CGFloat = 30 // Initial height
@@ -148,11 +147,13 @@ struct LinkPage: View {
 struct WebViewPage: View {
     @Binding var url: URL?
     @Environment(\.presentationMode) var presentationMode
+    @State private var showingDismissAlert = false
+    @State private var shouldClearCache = false
     
     var body: some View {
         Group {
             if let url = url {
-                WebView(url: url)
+                WebView(url: url, clearCache: $shouldClearCache)
                     .edgesIgnoringSafeArea(.all)
                     .toolbar(.hidden)
             } else {
@@ -161,9 +162,22 @@ struct WebViewPage: View {
         }
         .gesture(DragGesture().onEnded({ gesture in
             if gesture.translation.width > 100 {
-                self.presentationMode.wrappedValue.dismiss()
+                self.showingDismissAlert = true
             }
         }))
+        .alert(isPresented: $showingDismissAlert) {
+            Alert(
+                title: Text("Close Web View"),
+                message: Text("What would you like to do?"),
+                primaryButton: .default(Text("Hide")) {
+                    self.presentationMode.wrappedValue.dismiss()
+                },
+                secondaryButton: .default(Text("Clear Cache and Close")) {
+                    self.shouldClearCache = true
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            )
+        }
     }
 }
 
