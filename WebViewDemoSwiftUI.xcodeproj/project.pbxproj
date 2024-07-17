@@ -13,6 +13,8 @@
 		222EF73C2C42C545000068EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222EF73B2C42C545000068EB /* Preview Assets.xcassets */; };
 		222EF7462C42C608000068EB /* LinkPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EF7452C42C608000068EB /* LinkPage.swift */; };
 		222EF7482C42D0F6000068EB /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EF7472C42D0F6000068EB /* WebView.swift */; };
+		22A5B7322C47FC7500AA1A13 /* WebViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5B7312C47FC7500AA1A13 /* WebViewPage.swift */; };
+		22A5B7342C47FD4D00AA1A13 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5B7332C47FD4D00AA1A13 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		222EF73B2C42C545000068EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		222EF7452C42C608000068EB /* LinkPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPage.swift; sourceTree = "<group>"; };
 		222EF7472C42D0F6000068EB /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		22A5B7312C47FC7500AA1A13 /* WebViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPage.swift; sourceTree = "<group>"; };
+		22A5B7332C47FD4D00AA1A13 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,12 +59,14 @@
 		222EF7332C42C544000068EB /* WebViewDemoSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				22A5B7332C47FD4D00AA1A13 /* LocationManager.swift */,
 				222EF7342C42C544000068EB /* WebViewDemoSwiftUIApp.swift */,
 				222EF7362C42C544000068EB /* ContentView.swift */,
 				222EF7382C42C545000068EB /* Assets.xcassets */,
 				222EF73A2C42C545000068EB /* Preview Content */,
 				222EF7452C42C608000068EB /* LinkPage.swift */,
 				222EF7472C42D0F6000068EB /* WebView.swift */,
+				22A5B7312C47FC7500AA1A13 /* WebViewPage.swift */,
 			);
 			path = WebViewDemoSwiftUI;
 			sourceTree = "<group>";
@@ -149,7 +155,9 @@
 			files = (
 				222EF7372C42C544000068EB /* ContentView.swift in Sources */,
 				222EF7352C42C544000068EB /* WebViewDemoSwiftUIApp.swift in Sources */,
+				22A5B7342C47FD4D00AA1A13 /* LocationManager.swift in Sources */,
 				222EF7482C42D0F6000068EB /* WebView.swift in Sources */,
+				22A5B7322C47FC7500AA1A13 /* WebViewPage.swift in Sources */,
 				222EF7462C42C608000068EB /* LinkPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

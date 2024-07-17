@@ -6,25 +6,6 @@
 //
 
 import SwiftUI
-import CoreLocation
-
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
-    @Published var authorizationStatus: CLAuthorizationStatus?
-    
-    override init() {
-        super.init()
-        locationManager.delegate = self
-    }
-    
-    func requestPermission() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        authorizationStatus = manager.authorizationStatus
-    }
-}
 
 struct LinkPage: View {
     @State private var links: [String] = UserDefaults.standard.stringArray(forKey: "savedLinks") ?? [
@@ -41,40 +22,45 @@ struct LinkPage: View {
     
     var body: some View {
         ZStack {
-            NavigationView {
-                VStack {
-                    List {
-                        ForEach(links, id: \.self) { link in
-                            Button(action: {
-                                inputLink = link
-                            }) {
-                                HStack {
-                                    Image(systemName: "link")
-                                    Text(link)
-                                        .lineLimit(nil)
-                                        .fixedSize(horizontal: false, vertical: true)
+            GeometryReader { proxy in
+                NavigationView {
+                    VStack {
+                        List {
+                            ForEach(links, id: \.self) { link in
+                                Button(action: {
+                                    inputLink = link
+                                }) {
+                                    HStack {
+                                        Image(systemName: "link")
+                                        Text(link)
+                                            .lineLimit(nil)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
                                 }
                             }
+                            .onDelete(perform: deleteLink)
                         }
-                        .onDelete(perform: deleteLink)
+                        
+                        if locationManager.authorizationStatus != .authorizedWhenInUse &&
+                            locationManager.authorizationStatus != .authorizedAlways {
+                            Button("Turn on location service") {
+                                openAppSettings()
+                            }
+                        }
                     }
-                    
-                    
-                    if locationManager.authorizationStatus != .authorizedWhenInUse &&
-                        locationManager.authorizationStatus != .authorizedAlways {
-                        Button("Turn on location service") {
-                            openAppSettings()
-                        }
+                    .navigationTitle("Links")
+                    .fullScreenCover(isPresented: $isWebViewPresented) {
+                        WebViewPage(url: $selectedURL, isPresented: $isWebViewPresented)
                     }
                 }
-                .navigationTitle("Links")
-                .fullScreenCover(isPresented: $isWebViewPresented) {
-                    WebViewPage(url: $selectedURL)
-                }
-            }
-            .scrollDismissesKeyboard(.immediately)
-            .onAppear {
-                locationManager.requestPermission()
+                .scrollDismissesKeyboard(.immediately)
+                .onAppear {
+                    locationManager.requestPermission()
+                }.gesture(DragGesture().onEnded({ gesture in
+                    if gesture.translation.width < -100 && gesture.startLocation.x >= proxy.size.width - 20 && selectedURL != nil {
+                        isWebViewPresented = true
+                    }
+                }))
             }
             VStack {
                 Spacer()
@@ -141,43 +127,6 @@ struct LinkPage: View {
     private func updateTextFieldHeight() {
         let newSize = inputLink.size(withAttributes: [.font: UIFont.preferredFont(forTextStyle: .body)])
         textFieldHeight = newSize.height + 16 // Add some padding
-    }
-}
-
-struct WebViewPage: View {
-    @Binding var url: URL?
-    @Environment(\.presentationMode) var presentationMode
-    @State private var showingDismissAlert = false
-    @State private var shouldClearCache = false
-    
-    var body: some View {
-        Group {
-            if let url = url {
-                WebView(url: url, clearCache: $shouldClearCache)
-                    .edgesIgnoringSafeArea(.all)
-                    .toolbar(.hidden)
-            } else {
-                Text("Invalid URL")
-            }
-        }
-        .gesture(DragGesture().onEnded({ gesture in
-            if gesture.translation.width > 100 {
-                self.showingDismissAlert = true
-            }
-        }))
-        .alert(isPresented: $showingDismissAlert) {
-            Alert(
-                title: Text("Close Web View"),
-                message: Text("What would you like to do?"),
-                primaryButton: .default(Text("Hide")) {
-                    self.presentationMode.wrappedValue.dismiss()
-                },
-                secondaryButton: .default(Text("Clear Cache and Close")) {
-                    self.shouldClearCache = true
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            )
-        }
     }
 }
 
