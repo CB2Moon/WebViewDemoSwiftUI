@@ -10,14 +10,15 @@ import SwiftUI
 struct WebViewPage: View {
     @Binding var url: URL?
     @Binding var isPresented: Bool
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @State private var showingDismissAlert = false
     @State private var shouldClearCache = false
+    @State private var shouldReload = false
     
     var body: some View {
         Group {
             if let url = url {
-                WebView(url: url, clearCache: $shouldClearCache)
+                WebView(url: url, clearCache: $shouldClearCache, reload: $shouldReload)
                     .edgesIgnoringSafeArea(.all)
                     .toolbar(.hidden)
             } else {
@@ -31,11 +32,14 @@ struct WebViewPage: View {
         }))
         .alert("Close Web View", isPresented: $showingDismissAlert) {
             Button("Hide") {
-                self.presentationMode.wrappedValue.dismiss()
+                dismiss()
+            }            
+            Button("Refresh") {
+                self.shouldReload = true
             }
             Button("Clear Cache and Close", role: .destructive) {
                 self.shouldClearCache = true
-                self.presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
             Button("Cancel", role: .cancel) {
                 // Do nothing, just dismiss the alert

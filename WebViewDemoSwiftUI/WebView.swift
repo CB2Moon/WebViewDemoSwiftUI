@@ -11,6 +11,7 @@ import WebKit
 struct WebView: UIViewRepresentable {
     let url: URL
     @Binding var clearCache: Bool
+    @Binding var reload: Bool
     
     func makeUIView(context: Context) -> WKWebView {
         let webConfiguration = WKWebViewConfiguration()
@@ -23,20 +24,29 @@ struct WebView: UIViewRepresentable {
         return webView
     }
     
-    func updateUIView(_ uiView: WKWebView, context: Context) {
+    func updateUIView(_ webView: WKWebView, context: Context) {
         if clearCache {
-            clearWebViewCache(uiView)
+            clearWebViewCache(webView)
+            DispatchQueue.main.async {
+                self.clearCache = false
+            }
         }
-        let request = URLRequest(url: url)
-        uiView.load(request)
+        if reload {
+            webView.reload()
+            DispatchQueue.main.async {
+                self.reload = false
+            }
+        } else {
+            let request = URLRequest(url: url)
+            webView.load(request)
+        }
     }
     
     private func clearWebViewCache(_ webView: WKWebView) {
         let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
         let date = Date(timeIntervalSince1970: 0)
         WKWebsiteDataStore.default().removeData(ofTypes: dataTypes, modifiedSince: date) {
-            print("WebView cache cleared")
+//            print("WebView cache cleared")
         }
-        clearCache = false
     }
 }
