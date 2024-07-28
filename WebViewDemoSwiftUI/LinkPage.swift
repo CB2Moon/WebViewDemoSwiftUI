@@ -39,13 +39,13 @@ struct LinkPage: View {
                                 }
                             }
                             .onDelete(perform: deleteLink)
-                        }
+                        }.contentMargins(.bottom, 110.0)
                         
                         if locationManager.authorizationStatus != .authorizedWhenInUse &&
                             locationManager.authorizationStatus != .authorizedAlways {
                             Button("Turn on location service") {
                                 openAppSettings()
-                            }
+                            }.padding(.bottom, -10.0)
                         }
                     }
                     .navigationTitle("Links")
@@ -91,9 +91,8 @@ struct LinkPage: View {
                     .padding([.bottom, .trailing])
                     .buttonStyle(.borderedProminent)
                 }
-                .background(.thinMaterial)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16.0, style: .continuous))
                 .padding()
-                .cornerRadius(20)
                 .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10)
             }
         }
