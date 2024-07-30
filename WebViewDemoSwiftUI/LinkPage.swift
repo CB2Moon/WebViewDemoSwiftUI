@@ -18,7 +18,8 @@ struct LinkPage: View {
     @State private var isWebViewPresented: Bool = false
     @StateObject private var locationManager = LocationManager()
     private var fontSize: CGFloat = 17
-    @State private var textFieldHeight: CGFloat = 30 // Initial height
+    @State private var textFieldHeight: CGFloat = 34
+    private let maxTextFieldHeight: CGFloat = 140 // Approximately 7 lines
     
     var body: some View {
         ZStack {
@@ -39,7 +40,8 @@ struct LinkPage: View {
                                 }
                             }
                             .onDelete(perform: deleteLink)
-                        }.contentMargins(.bottom, 110.0)
+                        }
+                        .contentMargins(.bottom, 110.0)
                         
                         if locationManager.authorizationStatus != .authorizedWhenInUse &&
                             locationManager.authorizationStatus != .authorizedAlways {
@@ -65,16 +67,25 @@ struct LinkPage: View {
             VStack {
                 Spacer()
                 HStack(alignment: .bottom) {
-                    TextField("Link to visit", text: $inputLink, axis: .vertical)
-                        .textFieldStyle(.roundedBorder)
-                        .lineLimit(2, reservesSpace: true)
-                        .fixedSize(horizontal: false, vertical: true)
+                    TextEditor(text: $inputLink)
+                        .font(.system(size: fontSize))
+                        .frame(height: min(max(34, textFieldHeight), maxTextFieldHeight))
+                        .padding(4)
+                        .background(Color(UIColor.systemBackground))
+                        .cornerRadius(8)
+                        .overlay(){
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color(UIColor.systemGray4), lineWidth: 1)
+                        }
+                        .onChange(of: inputLink) {
+                            updateTextFieldHeight()
+                        }
                         .padding([.top, .leading, .bottom])
                     
                     Button(action: addLink) {
                         Image(systemName: "plus")
                             .padding(.vertical, 2.0)
-                            .frame(height: 22)
+                            .frame(height: 28)
                     }
                     .padding(.bottom)
                     .buttonStyle(.bordered)
@@ -86,7 +97,7 @@ struct LinkPage: View {
                         }
                     }) {
                         Text("Go")
-                            .frame(height: 22)
+                            .frame(height: 28)
                     }
                     .padding([.bottom, .trailing])
                     .buttonStyle(.borderedProminent)
@@ -103,6 +114,7 @@ struct LinkPage: View {
             links.append(inputLink)
             inputLink = ""
             saveLinks()
+            updateTextFieldHeight()
         }
     }
     
@@ -124,18 +136,14 @@ struct LinkPage: View {
     }
     
     private func updateTextFieldHeight() {
-        let newSize = inputLink.size(withAttributes: [.font: UIFont.preferredFont(forTextStyle: .body)])
-        textFieldHeight = newSize.height + 16 // Add some padding
-    }
-}
-
-extension UITextView {
-    static func calculateHeight(text: String, width: CGFloat = UIScreen.main.bounds.width) -> CGFloat {
-        let textView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-        textView.text = text
-        textView.font = UIFont.systemFont(ofSize: 16)
-        textView.sizeToFit()
-        return textView.frame.height
+        let size = CGSize(width: UIScreen.main.bounds.width - 100, height: .infinity)
+        let estimatedSize = inputLink.boundingRect(
+            with: size,
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: [.font: UIFont.systemFont(ofSize: fontSize)],
+            context: nil
+        )
+        textFieldHeight = estimatedSize.height + 12
     }
 }
 
