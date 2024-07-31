@@ -11,5 +11,5 @@ iOS 17 or above is required to use `.contentMargins()` to add some margin to the
 On the WebView page, you can exit by swiping right from the left edge of the screen. This action will reveal several options: `Hide`, `Refresh`, `Clear Cache and Close`, and `Cancel`.
 
 ## TODO
-[] list delete gesture seems conflicts with the `.scrollDismissesKeyboard()`
-[] `.contentMargins()` for lower iOS version
+- [ ] list delete gesture seems conflicts with the `.scrollDismissesKeyboard()`
+- [ ] `.contentMargins()` for lower iOS version
