@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2203FFC22C5A6525007207BA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		2203FFDD2C5BCB35007207BA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		222EF7312C42C544000068EB /* WebViewDemoSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewDemoSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		222EF7342C42C544000068EB /* WebViewDemoSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewDemoSwiftUIApp.swift; sourceTree = "<group>"; };
 		222EF7362C42C544000068EB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +44,7 @@
 		222EF7282C42C544000068EB = {
 			isa = PBXGroup;
 			children = (
+				2203FFDD2C5BCB35007207BA /* README.md */,
 				222EF7332C42C544000068EB /* WebViewDemoSwiftUI */,
 				222EF7322C42C544000068EB /* Products */,
 			);
@@ -68,7 +69,6 @@
 				222EF7452C42C608000068EB /* LinkPage.swift */,
 				222EF7472C42D0F6000068EB /* WebView.swift */,
 				22A5B7312C47FC7500AA1A13 /* WebViewPage.swift */,
-				2203FFC22C5A6525007207BA /* README.md */,
 			);
 			path = WebViewDemoSwiftUI;
 			sourceTree = "<group>";

@@ -58,11 +58,7 @@ struct LinkPage: View {
                 .scrollDismissesKeyboard(.immediately)
                 .onAppear {
                     locationManager.requestPermission()
-                }.gesture(DragGesture().onEnded({ gesture in
-                    if gesture.translation.width < -100 && gesture.startLocation.x >= proxy.size.width - 20 && selectedURL != nil {
-                        isWebViewPresented = true
-                    }
-                }))
+                }
             }
             VStack {
                 Spacer()
